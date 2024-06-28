@@ -27,4 +27,4 @@ jobs:
           python -m pip install --upgrade robotframework-jsonlibrary
 
       - name: Run robot tests with var set to lambda, tags and nostatus rc for ci
-        run: robot --include smoke --nostatusrc tests
+        run: robot --nostatusrc tests
