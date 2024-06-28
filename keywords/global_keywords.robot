@@ -147,7 +147,7 @@ Get Transaction Points History Of User
     ...     headers=${headers}
     ...     expected_status=200
     Log  ${resp.json()}
-    Set Global Variable    ${LATEST_TRANSACTION_HISTORY}    ${resp.json()}
+    Set Global Variable    ${LATEST_TRANSACTION_HISTORY}    ${resp}
 
 Get Client Id And Client Secret
     [Documentation]  Keyword to parse client_id and client_secret values from JSON source file

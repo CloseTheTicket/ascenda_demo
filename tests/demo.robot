@@ -74,9 +74,9 @@ Generate Random User Data
 
 Assert Correct Transaction Points Earned
     [Documentation]  Keyword to assert transaction details with correct points earned for user
-    Should Be Equal    ${LATEST_TRANSACTION_HISTORY.json()['data']['type']}    points_transaction
-    Should Be Equal    ${LATEST_TRANSACTION_HISTORY.json()['data']['user_id']}    ${USER_ID}
-    Should Be Equal    ${LATEST_TRANSACTION_HISTORY.json()['data']['amount']}    0.75
+    Should Be Equal    ${LATEST_TRANSACTION_HISTORY.json()['data'][0]['type']}    points_transaction
+    Should Be Equal    ${LATEST_TRANSACTION_HISTORY.json()['data'][0]['user_id']}    ${USER_ID}
+    Should Be Equal    ${LATEST_TRANSACTION_HISTORY.json()['data'][0]['amount']}    ${0.75}
 
 Wait For Batch Job
     [Documentation]    Wait for the batch job to complete approx. 15-20mins
