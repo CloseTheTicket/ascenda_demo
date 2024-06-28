@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.9.5 on darwin)" generated="20240628 16:25:50.353" rpa="false" schemaversion="4">
+<suite id="s1" name="Demo" source="/Users/cope/Documents/GitHub/ascenda_demo/tests/demo.robot">
+<test id="s1-t1" name="Verify points earned e2e test" line="6">
+<kw name="Create Token" library="global_keywords">
+<arg>${CREATE_TOKEN_ENDPOINT}</arg>
+<arg>client_credentials</arg>
+<arg>${CLIENT_ID}</arg>
+<arg>${CLIENT_SECRET}</arg>
+<arg>${AUDIENCE}</arg>
+<doc>https://docs.ascenda.com/reference/post_oauth-token</doc>
+<kw name="Create Ascenda API Session" library="global_keywords">
+<doc>Initialize API session for Ascenda API</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>API_SESSION</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20240628 16:25:50.689" level="INFO">Creating Session using : alias=API_SESSION, url=https://api.us.kaligo-staging.xyz, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20240628 16:25:50.689" endtime="20240628 16:25:50.689"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:50.689" endtime="20240628 16:25:50.689"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240628 16:25:50.689" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20240628 16:25:50.689" endtime="20240628 16:25:50.690"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{body}</var>
+<arg>grant_type=${grant_type}</arg>
+<arg>client_id=${client_id}</arg>
+<arg>client_secret=${client_secret}</arg>
+<arg>audience=${audience}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240628 16:25:50.690" level="INFO">&amp;{body} = { grant_type=client_credentials | client_id=189c1a95-b366-4444-a0f0-c7c0b56360ac | client_secret=787b36763e4b6c78c2cc0e92c72f56e1c9eab6af3d051e0d5838b33fc6a33382 | audience=api.us.kaligo-staging.xyz }</msg>
+<status status="PASS" starttime="20240628 16:25:50.690" endtime="20240628 16:25:50.690"/>
+</kw>
+<kw name="Dumps" library="json">
+<var>${body_json}</var>
+<arg>${body}</arg>
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<msg timestamp="20240628 16:25:50.690" level="INFO">${body_json} = {"grant_type": "client_credentials", "client_id": "189c1a95-b366-4444-a0f0-c7c0b56360ac", "client_secret": "787b36763e4b6c78c2cc0e92c72f56e1c9eab6af3d051e0d5838b33fc6a33382", "audience": "api.us.kalig...</msg>
+<status status="PASS" starttime="20240628 16:25:50.690" endtime="20240628 16:25:50.690"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>API_SESSION</arg>
+<arg>${endpoint}</arg>
+<arg>data=${body_json}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20240628 16:25:51.135" level="INFO">POST Request : url=https://api.us.kaligo-staging.xyz/oauth/token 
+ path_url=/oauth/token 
+ headers={'User-Agent': 'python-requests/2.30.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '215'} 
+ body={"grant_type": "client_credentials", "client_id": "189c1a95-b366-4444-a0f0-c7c0b56360ac", "client_secret": "787b36763e4b6c78c2cc0e92c72f56e1c9eab6af3d051e0d5838b33fc6a33382", "audience": "api.us.kaligo-staging.xyz"} 
+ </msg>
+<msg timestamp="20240628 16:25:51.136" level="INFO">POST Response : url=https://api.us.kaligo-staging.xyz/oauth/token 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 28 Jun 2024 08:25:51 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '830', 'Connection': 'keep-alive', 'x-request-id': 'd62ac316-3ba4-9fe5-bc57-cb4f8e51ee3d', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-security-policy': "form-action 'self'; base-uri 'self'; default-src 'none'; script-src 'self' 'unsafe-eval' 'nonce-d782669c474f906b8086c212ec7e388ba041799730375620295cdf46b7b8ef78' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com https://assets.adobedtm.com/; connect-src 'self' https://ascendaloyalty.cdn.prismic.io  https://www.google-analytics.com https://api.rollbar.com/api/1/item/; img-src 'self' www.gstatic.com https: data:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com/; object-src 'none'; child-src 'self' wvjbscheme://*; frame-src 'self'  wvjbscheme://* https://challenges.cloudflare.com; media-src 'self';", 'x-frame-options': 'DENY', 'set-cookie': 'rack.session=27f61396c03290c8afddf8f6d084e6628d5fcc7ff97cc3781c78a6208eabcada; path=/; secure; HttpOnly; SameSite=Lax', 'vary': 'Origin,Accept-Encoding', 'content-encoding': 'gzip', 'x-runtime': '0.046150', 'strict-transport-security': 'max-age=31536000', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '89ac49dc2efd8514-HKG', 'alt-svc': 'h3=":443"; ma=86400'} 
+ body={"token_id":"a630cfbc-fa32-4f51-be47-9f12f518b664","token":"eyJraWQiOiI0YTFiZTRjMC01NTA5LTRmNGYtODNmYy0wMjFkOTNhMmM0M2MiLCJhbGciOiJFZERTQSJ9.eyJ0ZW5hbnRfaWQiOiJwb3NlaWRvblJjVXMiLCJzdWIiOiI0bzYwSUFrTENhOEdhTGpOLmNvbSIsImlzcyI6InJjLWd1YXJkaG91c2Uuc3RnLXJjLXVzLmludC5rYWxpZ28uY29tIiwiYXVkIjoiYXBpLnVzLmthbGlnby1zdGFnaW5nLnh5eiIsImV4cCI6MTcyNzMzOTE1MCwiaWF0IjoxNzE5NTYzMTUwLCJqdGkiOiJhNjMwY2ZiYy1mYTMyLTRmNTEtYmU0Ny05ZjEyZjUxOGI2NjQiLCJzY29wZSI6ImV4dF9ldmVudHMgZXh0X2V2ZW50czpjcmVhdGUgZXh0X2xvZ2luX2xpbmtzIGV4dF9sb2dpbl9saW5rczpjcmVhdGUgZXh0X2xzX2FwaSBleHRfb3V0Z29pbmdfcmVxdWVzdHMgZXh0X291dGdvaW5nX3JlcXVlc3RzOmluZGV4IGV4dF9vdXRnb2luZ19yZXF1ZXN0czpzaG93IGV4dF9wb2ludF9hZGp1c3RtZW50czpjcmVhdGUgZXh0X3NlZ21lbnRfbWVtYmVycyBleHRfc2VnbWVudF9tZW1iZXJzOmNyZWF0ZSBleHRfc2VnbWVudF9tZW1iZXJzOnVwZGF0ZSBleHRfc29tZV9yYW5kb21fc2NvcGUgZXh0X3RyYW5zYWN0aW9ucyBleHRfdHJhbnNhY3Rpb25zOmNyZWF0ZSBleHRfdXNlcl9yY19jYW1wYWlnbnMgZXh0X3VzZXJfcmNfY2FtcGFpZ25zOmluZGV4IGV4dF91c2VycyBleHRfdXNlcnM6Y3JlYXRlIGV4dF91c2Vyc19yZWFjdGl2YXRlIGV4dF91c2Vyc19yZWFjdGl2YXRlOmNyZWF0ZSBleHRfdXNlcnM6c2hvdyBleHRfdXNlcnM6dXBkYXRlIGV4dF91c2Vyc193cml0ZW9mZiBleHRfdXNlcnNfd3JpdGVvZmY6Y3JlYXRlIn0.7-enH3sQ_ICvmcGGyiSyFXOg6MedqtigCZxdxk9cGHDWtolFnxFaeWHyw9QcUosyRwks_sX4mqpc7GGO_5zyBQ","token_type":"Bearer","expires_at":1727339150,"access_token":"eyJraWQiOiI0YTFiZTRjMC01NTA5LTRmNGYtODNmYy0wMjFkOTNhMmM0M2MiLCJhbGciOiJFZERTQSJ9.eyJ0ZW5hbnRfaWQiOiJwb3NlaWRvblJjVXMiLCJzdWIiOiI0bzYwSUFrTENhOEdhTGpOLmNvbSIsImlzcyI6InJjLWd1YXJkaG91c2Uuc3RnLXJjLXVzLmludC5rYWxpZ28uY29tIiwiYXVkIjoiYXBpLnVzLmthbGlnby1zdGFnaW5nLnh5eiIsImV4cCI6MTcyNzMzOTE1MCwiaWF0IjoxNzE5NTYzMTUwLCJqdGkiOiJhNjMwY2ZiYy1mYTMyLTRmNTEtYmU0Ny05ZjEyZjUxOGI2NjQiLCJzY29wZSI6ImV4dF9ldmVudHMgZXh0X2V2ZW50czpjcmVhdGUgZXh0X2xvZ2luX2xpbmtzIGV4dF9sb2dpbl9saW5rczpjcmVhdGUgZXh0X2xzX2FwaSBleHRfb3V0Z29pbmdfcmVxdWVzdHMgZXh0X291dGdvaW5nX3JlcXVlc3RzOmluZGV4IGV4dF9vdXRnb2luZ19yZXF1ZXN0czpzaG93IGV4dF9wb2ludF9hZGp1c3RtZW50czpjcmVhdGUgZXh0X3NlZ21lbnRfbWVtYmVycyBleHRfc2VnbWVudF9tZW1iZXJzOmNyZWF0ZSBleHRfc2VnbWVudF9tZW1iZXJzOnVwZGF0ZSBleHRfc29tZV9yYW5kb21fc2NvcGUgZXh0X3RyYW5zYWN0aW9ucyBleHRfdHJhbnNhY3Rpb25zOmNyZWF0ZSBleHRfdXNlcl9yY19jYW1wYWlnbnMgZXh0X3VzZXJfcmNfY2FtcGFpZ25zOmluZGV4IGV4dF91c2VycyBleHRfdXNlcnM6Y3JlYXRlIGV4dF91c2Vyc19yZWFjdGl2YXRlIGV4dF91c2Vyc19yZWFjdGl2YXRlOmNyZWF0ZSBleHRfdXNlcnM6c2hvdyBleHRfdXNlcnM6dXBkYXRlIGV4dF91c2Vyc193cml0ZW9mZiBleHRfdXNlcnNfd3JpdGVvZmY6Y3JlYXRlIn0.7-enH3sQ_ICvmcGGyiSyFXOg6MedqtigCZxdxk9cGHDWtolFnxFaeWHyw9QcUosyRwks_sX4mqpc7GGO_5zyBQ"} 
+ </msg>
+<msg timestamp="20240628 16:25:51.136" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240628 16:25:50.690" endtime="20240628 16:25:51.136"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${BEARER_TOKEN}</var>
+<arg>Bearer ${resp.json()['access_token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240628 16:25:51.138" level="INFO">${BEARER_TOKEN} = Bearer eyJraWQiOiI0YTFiZTRjMC01NTA5LTRmNGYtODNmYy0wMjFkOTNhMmM0M2MiLCJhbGciOiJFZERTQSJ9.eyJ0ZW5hbnRfaWQiOiJwb3NlaWRvblJjVXMiLCJzdWIiOiI0bzYwSUFrTENhOEdhTGpOLmNvbSIsImlzcyI6InJjLWd1YXJkaG91c2Uuc3RnLXJj...</msg>
+<status status="PASS" starttime="20240628 16:25:51.136" endtime="20240628 16:25:51.138"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${BEARER_TOKEN}</arg>
+<arg>${BEARER_TOKEN}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20240628 16:25:51.138" level="INFO">${BEARER_TOKEN} = Bearer eyJraWQiOiI0YTFiZTRjMC01NTA5LTRmNGYtODNmYy0wMjFkOTNhMmM0M2MiLCJhbGciOiJFZERTQSJ9.eyJ0ZW5hbnRfaWQiOiJwb3NlaWRvblJjVXMiLCJzdWIiOiI0bzYwSUFrTENhOEdhTGpOLmNvbSIsImlzcyI6InJjLWd1YXJkaG91c2Uuc3RnLXJj...</msg>
+<status status="PASS" starttime="20240628 16:25:51.138" endtime="20240628 16:25:51.139"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:50.688" endtime="20240628 16:25:51.139"/>
+</kw>
+<kw name="Generate Random User Data">
+<doc>Keyword to generate random data for user</doc>
+<kw name="Generate Random String" library="String">
+<var>${PARTNER_USER_ID}</var>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20240628 16:25:51.140" level="INFO">${PARTNER_USER_ID} = zvVE1pWR</msg>
+<status status="PASS" starttime="20240628 16:25:51.139" endtime="20240628 16:25:51.140"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${PARTNER_USER_ID}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20240628 16:25:51.140" level="INFO">${PARTNER_USER_ID} = zvVE1pWR</msg>
+<status status="PASS" starttime="20240628 16:25:51.140" endtime="20240628 16:25:51.140"/>
+</kw>
+<kw name="Email" library="FakerLibrary">
+<var>${RANDOM_EMAIL}</var>
+<msg timestamp="20240628 16:25:51.141" level="INFO">${RANDOM_EMAIL} = mccallshelly@lee.com</msg>
+<status status="PASS" starttime="20240628 16:25:51.140" endtime="20240628 16:25:51.142"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${RANDOM_EMAIL}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20240628 16:25:51.142" level="INFO">${RANDOM_EMAIL} = mccallshelly@lee.com</msg>
+<status status="PASS" starttime="20240628 16:25:51.142" endtime="20240628 16:25:51.142"/>
+</kw>
+<kw name="First Name" library="FakerLibrary">
+<var>${RANDOM_FNAME}</var>
+<msg timestamp="20240628 16:25:51.143" level="INFO">${RANDOM_FNAME} = Wayne</msg>
+<status status="PASS" starttime="20240628 16:25:51.142" endtime="20240628 16:25:51.143"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${RANDOM_FNAME}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20240628 16:25:51.143" level="INFO">${RANDOM_FNAME} = Wayne</msg>
+<status status="PASS" starttime="20240628 16:25:51.143" endtime="20240628 16:25:51.143"/>
+</kw>
+<kw name="Last Name" library="FakerLibrary">
+<var>${RANDOM_LNAME}</var>
+<msg timestamp="20240628 16:25:51.144" level="INFO">${RANDOM_LNAME} = Ruiz</msg>
+<status status="PASS" starttime="20240628 16:25:51.143" endtime="20240628 16:25:51.144"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${RANDOM_LNAME}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20240628 16:25:51.144" level="INFO">${RANDOM_LNAME} = Ruiz</msg>
+<status status="PASS" starttime="20240628 16:25:51.144" endtime="20240628 16:25:51.144"/>
+</kw>
+<kw name="Country Code" library="FakerLibrary">
+<var>${RANDOM_COUNTRY_CODE}</var>
+<msg timestamp="20240628 16:25:51.145" level="INFO">${RANDOM_COUNTRY_CODE} = NP</msg>
+<status status="PASS" starttime="20240628 16:25:51.145" endtime="20240628 16:25:51.145"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${RANDOM_COUNTRY_CODE}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20240628 16:25:51.145" level="INFO">${RANDOM_COUNTRY_CODE} = NP</msg>
+<status status="PASS" starttime="20240628 16:25:51.145" endtime="20240628 16:25:51.145"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:51.139" endtime="20240628 16:25:51.146"/>
+</kw>
+<kw name="Create User" library="global_keywords">
+<arg>${USERS_ENDPOINT}</arg>
+<arg>${PARTNER_USER_ID}</arg>
+<arg>${RANDOM_EMAIL}</arg>
+<arg>+6587654321</arg>
+<arg>active</arg>
+<arg>${RANDOM_FNAME}</arg>
+<arg>${RANDOM_LNAME}</arg>
+<arg>1987-11-21</arg>
+<arg>male</arg>
+<arg>${RANDOM_COUNTRY_CODE}</arg>
+<doc>https://docs.ascenda.com/reference/post_users</doc>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{headers}</var>
+<arg>Authorization=${BEARER_TOKEN}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240628 16:25:51.148" level="INFO">&amp;{headers} = { Authorization=Bearer eyJraWQiOiI0YTFiZTRjMC01NTA5LTRmNGYtODNmYy0wMjFkOTNhMmM0M2MiLCJhbGciOiJFZERTQSJ9.eyJ0ZW5hbnRfaWQiOiJwb3NlaWRvblJjVXMiLCJzdWIiOiI0bzYwSUFrTENhOEdhTGpOLmNvbSIsImlzcyI6InJjLWd1YXJk...</msg>
+<status status="PASS" starttime="20240628 16:25:51.147" endtime="20240628 16:25:51.148"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{body}</var>
+<arg>partner_user_id=${partner_user_id}</arg>
+<arg>email=${email}</arg>
+<arg>phone_number=${phone_number}</arg>
+<arg>status=${status}</arg>
+<arg>first_name=${first_name}</arg>
+<arg>last_name=${last_name}</arg>
+<arg>birthdate=${birthdate}</arg>
+<arg>gender=${gender}</arg>
+<arg>country_code=${country_code}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240628 16:25:51.149" level="INFO">&amp;{body} = { partner_user_id=zvVE1pWR | email=mccallshelly@lee.com | phone_number=+6587654321 | status=active | first_name=Wayne | last_name=Ruiz | birthdate=1987-11-21 | gender=male | country_code=NP }</msg>
+<status status="PASS" starttime="20240628 16:25:51.148" endtime="20240628 16:25:51.149"/>
+</kw>
+<kw name="Dumps" library="json">
+<var>${body_json}</var>
+<arg>${body}</arg>
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<msg timestamp="20240628 16:25:51.149" level="INFO">${body_json} = {"partner_user_id": "zvVE1pWR", "email": "mccallshelly@lee.com", "phone_number": "+6587654321", "status": "active", "first_name": "Wayne", "last_name": "Ruiz", "birthdate": "1987-11-21", "gender": "ma...</msg>
+<status status="PASS" starttime="20240628 16:25:51.149" endtime="20240628 16:25:51.150"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>API_SESSION</arg>
+<arg>${endpoint}</arg>
+<arg>data=${body_json}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20240628 16:25:51.854" level="INFO">POST Request : url=https://api.us.kaligo-staging.xyz/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.30.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJraWQiOiI0YTFiZTRjMC01NTA5LTRmNGYtODNmYy0wMjFkOTNhMmM0M2MiLCJhbGciOiJFZERTQSJ9.eyJ0ZW5hbnRfaWQiOiJwb3NlaWRvblJjVXMiLCJzdWIiOiI0bzYwSUFrTENhOEdhTGpOLmNvbSIsImlzcyI6InJjLWd1YXJkaG91c2Uuc3RnLXJjLXVzLmludC5rYWxpZ28uY29tIiwiYXVkIjoiYXBpLnVzLmthbGlnby1zdGFnaW5nLnh5eiIsImV4cCI6MTcyNzMzOTE1MCwiaWF0IjoxNzE5NTYzMTUwLCJqdGkiOiJhNjMwY2ZiYy1mYTMyLTRmNTEtYmU0Ny05ZjEyZjUxOGI2NjQiLCJzY29wZSI6ImV4dF9ldmVudHMgZXh0X2V2ZW50czpjcmVhdGUgZXh0X2xvZ2luX2xpbmtzIGV4dF9sb2dpbl9saW5rczpjcmVhdGUgZXh0X2xzX2FwaSBleHRfb3V0Z29pbmdfcmVxdWVzdHMgZXh0X291dGdvaW5nX3JlcXVlc3RzOmluZGV4IGV4dF9vdXRnb2luZ19yZXF1ZXN0czpzaG93IGV4dF9wb2ludF9hZGp1c3RtZW50czpjcmVhdGUgZXh0X3NlZ21lbnRfbWVtYmVycyBleHRfc2VnbWVudF9tZW1iZXJzOmNyZWF0ZSBleHRfc2VnbWVudF9tZW1iZXJzOnVwZGF0ZSBleHRfc29tZV9yYW5kb21fc2NvcGUgZXh0X3RyYW5zYWN0aW9ucyBleHRfdHJhbnNhY3Rpb25zOmNyZWF0ZSBleHRfdXNlcl9yY19jYW1wYWlnbnMgZXh0X3VzZXJfcmNfY2FtcGFpZ25zOmluZGV4IGV4dF91c2VycyBleHRfdXNlcnM6Y3JlYXRlIGV4dF91c2Vyc19yZWFjdGl2YXRlIGV4dF91c2Vyc19yZWFjdGl2YXRlOmNyZWF0ZSBleHRfdXNlcnM6c2hvdyBleHRfdXNlcnM6dXBkYXRlIGV4dF91c2Vyc193cml0ZW9mZiBleHRfdXNlcnNfd3JpdGVvZmY6Y3JlYXRlIn0.7-enH3sQ_ICvmcGGyiSyFXOg6MedqtigCZxdxk9cGHDWtolFnxFaeWHyw9QcUosyRwks_sX4mqpc7GGO_5zyBQ', 'Content-Type': 'application/json', 'Cookie': 'rack.session=27f61396c03290c8afddf8f6d084e6628d5fcc7ff97cc3781c78a6208eabcada', 'Content-Length': '226'} 
+ body={"partner_user_id": "zvVE1pWR", "email": "mccallshelly@lee.com", "phone_number": "+6587654321", "status": "active", "first_name": "Wayne", "last_name": "Ruiz", "birthdate": "1987-11-21", "gender": "male", "country_code": "NP"} 
+ </msg>
+<msg timestamp="20240628 16:25:51.855" level="INFO">POST Response : url=https://api.us.kaligo-staging.xyz/users 
+ status=201, reason=Created 
+ headers={'Date': 'Fri, 28 Jun 2024 08:25:51 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '236', 'Connection': 'keep-alive', 'x-request-id': '9fb400e3-033e-9bf6-9281-ee58192f3598', 'x-frame-options': 'DENY', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-security-policy': "form-action 'self'; frame-ancestors 'self'; base-uri 'self'; default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; font-src 'self'; object-src 'none'; plugin-types application/pdf; child-src 'self'; frame-src 'self'; media-src 'self'", 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'x-runtime': '0.236422', 'strict-transport-security': 'max-age=31536000', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '89ac49defc6c8514-HKG', 'alt-svc': 'h3=":443"; ma=86400'} 
+ body={"id":"07b5ea4a-5150-479c-847b-880690fd1af5","address":{"country_code":"NP"},"email":"mccallshelly@lee.com","partner_user_id":"zvVE1pWR","status":"active","phone_number":"+6587654321","first_name":"Wayne","last_name":"Ruiz","birthdate":"1987-11-21","gender":"male","activated":false} 
+ </msg>
+<msg timestamp="20240628 16:25:51.855" level="INFO">${resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20240628 16:25:51.150" endtime="20240628 16:25:51.855"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${USER_ID}</var>
+<arg>${resp.json()['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240628 16:25:51.858" level="INFO">${USER_ID} = 07b5ea4a-5150-479c-847b-880690fd1af5</msg>
+<status status="PASS" starttime="20240628 16:25:51.856" endtime="20240628 16:25:51.859"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${USER_ID}</arg>
+<arg>${USER_ID}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20240628 16:25:51.860" level="INFO">${USER_ID} = 07b5ea4a-5150-479c-847b-880690fd1af5</msg>
+<status status="PASS" starttime="20240628 16:25:51.859" endtime="20240628 16:25:51.860"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:51.146" endtime="20240628 16:25:51.860"/>
+</kw>
+<kw name="Mock Post Webhook Payload" library="global_keywords">
+<doc>https://docs.ascenda.com/reference/webhook-payload-format
+Webhook sent to url: https://webhook.site/#!/view/bb9d5b04-ad34-4917-8699-ce24d4506ab8</doc>
+<kw name="Get File" library="OperatingSystem">
+<var>${json_file}</var>
+<arg>/Users/cope/Documents/GitHub/ascenda_demo/keywords/../test_data_files/sample_webhook_payload.json</arg>
+<doc>Returns the contents of a specified file.</doc>
+<msg timestamp="20240628 16:25:51.862" level="INFO" html="true">Getting file '&lt;a href="file:///Users/cope/Documents/GitHub/ascenda_demo/test_data_files/sample_webhook_payload.json"&gt;/Users/cope/Documents/GitHub/ascenda_demo/test_data_files/sample_webhook_payload.json&lt;/a&gt;'.</msg>
+<msg timestamp="20240628 16:25:51.863" level="INFO">${json_file} = {"data": {"status": "enrolled", "user_id": "c48064a1-dec4-4e04-aa31-4765aea7ae4e", "points_account_id": "eb3f7298-2104-4d64-9542-4fdf145e689d"}, "event_id": "901f865e-8463-4057-8475-4c1f6ee93888", "cr...</msg>
+<status status="PASS" starttime="20240628 16:25:51.861" endtime="20240628 16:25:51.864"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${json_file}</var>
+<arg>/Users/cope/Documents/GitHub/ascenda_demo/keywords/../test_data_files/sample_webhook_payload.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20240628 16:25:51.864" level="INFO">${json_file} = {'data': {'status': 'enrolled', 'user_id': 'c48064a1-dec4-4e04-aa31-4765aea7ae4e', 'points_account_id': 'eb3f7298-2104-4d64-9542-4fdf145e689d'}, 'event_id': '901f865e-8463-4057-8475-4c1f6ee93888', 'cr...</msg>
+<status status="PASS" starttime="20240628 16:25:51.864" endtime="20240628 16:25:51.864"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${json_object}</var>
+<arg>${json_file}</arg>
+<arg>$..data.user_id</arg>
+<arg>${USER_ID}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20240628 16:25:51.907" level="INFO">${json_object} = {'data': {'status': 'enrolled', 'user_id': '07b5ea4a-5150-479c-847b-880690fd1af5', 'points_account_id': 'eb3f7298-2104-4d64-9542-4fdf145e689d'}, 'event_id': '901f865e-8463-4057-8475-4c1f6ee93888', 'cr...</msg>
+<status status="PASS" starttime="20240628 16:25:51.865" endtime="20240628 16:25:51.907"/>
+</kw>
+<kw name="Dump Json To File" library="JSONLibrary">
+<arg>/Users/cope/Documents/GitHub/ascenda_demo/keywords/../test_data_files/sample_webhook_payload.json</arg>
+<arg>${json_object}</arg>
+<doc>Dump JSON to file</doc>
+<status status="PASS" starttime="20240628 16:25:51.907" endtime="20240628 16:25:51.908"/>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<var>${json_file}</var>
+<arg>/Users/cope/Documents/GitHub/ascenda_demo/keywords/../test_data_files/sample_webhook_payload.json</arg>
+<doc>Returns the contents of a specified file.</doc>
+<msg timestamp="20240628 16:25:51.908" level="INFO" html="true">Getting file '&lt;a href="file:///Users/cope/Documents/GitHub/ascenda_demo/test_data_files/sample_webhook_payload.json"&gt;/Users/cope/Documents/GitHub/ascenda_demo/test_data_files/sample_webhook_payload.json&lt;/a&gt;'.</msg>
+<msg timestamp="20240628 16:25:51.908" level="INFO">${json_file} = {"data": {"status": "enrolled", "user_id": "07b5ea4a-5150-479c-847b-880690fd1af5", "points_account_id": "eb3f7298-2104-4d64-9542-4fdf145e689d"}, "event_id": "901f865e-8463-4057-8475-4c1f6ee93888", "cr...</msg>
+<status status="PASS" starttime="20240628 16:25:51.908" endtime="20240628 16:25:51.909"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240628 16:25:51.909" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20240628 16:25:51.909" endtime="20240628 16:25:51.909"/>
+</kw>
+<kw name="Create API Session For Webhook" library="global_keywords">
+<doc>Initialize API session for webhook url</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>WEBHOOK_SESSION</arg>
+<arg>url=${WEBHOOK_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20240628 16:25:51.910" level="INFO">Creating Session using : alias=WEBHOOK_SESSION, url=https://webhook.site/token/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20240628 16:25:51.909" endtime="20240628 16:25:51.910"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:51.909" endtime="20240628 16:25:51.910"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>${POST_WEBHOOK_URL}</arg>
+<arg>data=${json_file}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20240628 16:25:53.262" level="INFO">POST Request : url=https://webhook.site/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw 
+ path_url=/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw 
+ headers={'User-Agent': 'python-requests/2.30.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '335'} 
+ body={"data": {"status": "enrolled", "user_id": "07b5ea4a-5150-479c-847b-880690fd1af5", "points_account_id": "eb3f7298-2104-4d64-9542-4fdf145e689d"}, "event_id": "901f865e-8463-4057-8475-4c1f6ee93888", "created_at": "2024-04-09T01: 05: 48Z", "event_type": "user.updated", "source_type": "user", "id": "e93113a9-4ab1-4d9f-ba5c-6533f994025a"} 
+ </msg>
+<msg timestamp="20240628 16:25:53.262" level="INFO">POST Response : url=https://webhook.site/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw 
+ status=200, reason=OK 
+ headers={'Server': 'nginx', 'Content-Type': 'text/html; charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Vary': 'Accept-Encoding', 'X-Request-Id': '0c0158b7-43cc-477b-b6d1-55d6a31f68c6', 'X-Token-Id': '239c1f7d-a7b0-4c3f-a481-70197f89b55b', 'Cache-Control': 'no-cache, private', 'Date': 'Fri, 28 Jun 2024 08:25:53 GMT', 'Content-Encoding': 'gzip'} 
+ body=This URL has no default content configured. &lt;a href="https://webhook.site/#!/view/239c1f7d-a7b0-4c3f-a481-70197f89b55b"&gt;View in Webhook.site&lt;/a&gt;. 
+ </msg>
+<msg timestamp="20240628 16:25:53.263" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240628 16:25:51.910" endtime="20240628 16:25:53.263"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:51.861" endtime="20240628 16:25:53.263"/>
+</kw>
+<kw name="Get Webhook Payload" library="global_keywords">
+<doc>https://docs.ascenda.com/reference/webhook-payload-format
+Webhook sent to url: https://webhook.site/#!/view/bb9d5b04-ad34-4917-8699-ce24d4506ab8</doc>
+<kw name="Create API Session For Webhook" library="global_keywords">
+<doc>Initialize API session for webhook url</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>WEBHOOK_SESSION</arg>
+<arg>url=${WEBHOOK_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20240628 16:25:53.269" level="INFO">Creating Session using : alias=WEBHOOK_SESSION, url=https://webhook.site/token/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20240628 16:25:53.268" endtime="20240628 16:25:53.269"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:53.265" endtime="20240628 16:25:53.270"/>
+</kw>
+<kw name="GET" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>${WEBHOOK_URL}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20240628 16:25:53.639" level="INFO">GET Request : url=https://webhook.site/token/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw 
+ path_url=/token/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw 
+ headers={'User-Agent': 'python-requests/2.30.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20240628 16:25:53.639" level="INFO">GET Response : url=https://webhook.site/token/239c1f7d-a7b0-4c3f-a481-70197f89b55b/request/latest/raw 
+ status=200, reason=OK 
+ headers={'Server': 'nginx', 'Content-Type': 'text/plain; charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Vary': 'Accept-Encoding', 'Cache-Control': 'no-cache, private', 'Date': 'Fri, 28 Jun 2024 08:25:53 GMT', 'Content-Encoding': 'gzip'} 
+ body={"data": {"status": "enrolled", "user_id": "07b5ea4a-5150-479c-847b-880690fd1af5", "points_account_id": "eb3f7298-2104-4d64-9542-4fdf145e689d"}, "event_id": "901f865e-8463-4057-8475-4c1f6ee93888", "created_at": "2024-04-09T01: 05: 48Z", "event_type": "user.updated", "source_type": "user", "id": "e93113a9-4ab1-4d9f-ba5c-6533f994025a"} 
+ </msg>
+<msg timestamp="20240628 16:25:53.639" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240628 16:25:53.270" endtime="20240628 16:25:53.640"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resp.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240628 16:25:53.643" level="INFO">{'data': {'status': 'enrolled', 'user_id': '07b5ea4a-5150-479c-847b-880690fd1af5', 'points_account_id': 'eb3f7298-2104-4d64-9542-4fdf145e689d'}, 'event_id': '901f865e-8463-4057-8475-4c1f6ee93888', 'created_at': '2024-04-09T01: 05: 48Z', 'event_type': 'user.updated', 'source_type': 'user', 'id': 'e93113a9-4ab1-4d9f-ba5c-6533f994025a'}</msg>
+<status status="PASS" starttime="20240628 16:25:53.640" endtime="20240628 16:25:53.643"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${WEBHOOK_RESPONSE}</arg>
+<arg>${resp}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20240628 16:25:53.646" level="INFO">${WEBHOOK_RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240628 16:25:53.643" endtime="20240628 16:25:53.646"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:53.264" endtime="20240628 16:25:53.646"/>
+</kw>
+<kw name="Assert Webhook Payload User Should Be Enrolled">
+<doc>Keyword to assert json payload that user status is "enrolled"</doc>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${WEBHOOK_RESPONSE.json()['data']['status']}</arg>
+<arg>enrolled</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20240628 16:25:53.647" endtime="20240628 16:25:53.648"/>
+</kw>
+<status status="PASS" starttime="20240628 16:25:53.646" endtime="20240628 16:25:53.648"/>
+</kw>
+<kw name="Create Transaction" library="global_keywords">
+<arg>${TRANSACTIONS_ENDPOINT}</arg>
+<arg>${USER_ID}</arg>
+<arg>1234</arg>
+<arg>2024-06-28</arg>
+<arg>1</arg>
+<arg>USD</arg>
+<arg>false</arg>
+<arg>platinum</arg>
+<arg>lorem ipsum transaction</arg>
+<arg>1234</arg>
+<arg>lorem ipsum merchant</arg>
+<arg>1234</arg>
+<arg>123456</arg>
+<arg>1234</arg>
+<arg>MC_AUTH_LOC_ID</arg>
+<doc>https://docs.ascenda.com/reference/post_loyalty-transactions</doc>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{headers}</var>
+<arg>Authorization=${BEARER_TOKEN}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240628 16:25:53.651" level="INFO">&amp;{headers} = { Authorization=Bearer eyJraWQiOiI0YTFiZTRjMC01NTA5LTRmNGYtODNmYy0wMjFkOTNhMmM0M2MiLCJhbGciOiJFZERTQSJ9.eyJ0ZW5hbnRfaWQiOiJwb3NlaWRvblJjVXMiLCJzdWIiOiI0bzYwSUFrTENhOEdhTGpOLmNvbSIsImlzcyI6InJjLWd1YXJk...</msg>
+<status status="PASS" starttime="20240628 16:25:53.649" endtime="20240628 16:25:53.651"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{body}</var>
+<arg>user_id=${user_id}</arg>
+<arg>transaction_reference=${transaction_reference}</arg>
+<arg>posting_date=${posting_date}</arg>
+<arg>amount=${amount}</arg>
+<arg>international_currency=${international_currency}</arg>
+<arg>is_international=${is_international}</arg>
+<arg>account_type=${account_type}</arg>
+<arg>description=${description}</arg>
+<arg>merchant_category_code=${merchant_category_code}</arg>
+<arg>
