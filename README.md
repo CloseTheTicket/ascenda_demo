@@ -31,4 +31,4 @@
 ```sh
   robot tests/demo.robot
 ```
-## View results generated ``report.html`` and ``log.html``
+### View results generated ``report.html`` and ``log.html``
