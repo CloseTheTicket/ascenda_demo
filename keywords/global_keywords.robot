@@ -143,7 +143,7 @@ Get Transaction Points History Of User
     &{headers}=    Create Dictionary    Authorization=${BEARER_TOKEN}   Content-Type=application/json
     ${resp}=    GET On Session
     ...     API_SESSION
-    ...     /users/${user_id}/${TRANSACTIONS_ENDPOINT}
+    ...     /users/${user_id}/${TRANSACTIONS_HISTORY_ENDPOINT}
     ...     headers=${headers}
     ...     expected_status=200
     Log  ${resp.json()}

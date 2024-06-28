@@ -82,4 +82,4 @@ Wait For Batch Job
     [Documentation]    Wait for the batch job to complete approx. 15-20mins
     Log    Waiting for the batch job to completion.
     Log To Console  Waiting for the batch job completion.
-    Sleep    18m  reason=Waiting for the batch job completion.
+    Sleep    16 minutes  reason=Waiting for the batch job completion.
