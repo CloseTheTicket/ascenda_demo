@@ -151,9 +151,25 @@ Get Transaction Points History Of User
 
 Get Client Id And Client Secret
     [Documentation]  Keyword to parse client_id and client_secret values from JSON source file
+    #import json from file
     ${json_file}=    Get File    ${CURDIR}/../test_data_files/client_secret_client_id_config.json
     ${json_file}=    Load Json From File    ${CURDIR}/../test_data_files/client_secret_client_id_config.json
-    ${CLIENT_ID}=	Get Value From Json	${json_file}	$..client_id
-    ${CLIENT_SECRET}=	Get Value From Json	${json_file}	$..client_secret
+
+    #parse json obj and start conversion and trim
+    ${json_file}=	Get Value From Json	${json_file}	$..client_id
+    ${CLIENT_ID}=    Convert JSON To String	${json_file}
+    ${CLIENT_ID}=    Evaluate    ${CLIENT_ID}[1:-1].strip('"')    json
+    Log    ${CLIENT_ID}
+
+    #import json from file
+    ${json_file}=    Get File    ${CURDIR}/../test_data_files/client_secret_client_id_config.json
+    ${json_file}=    Load Json From File    ${CURDIR}/../test_data_files/client_secret_client_id_config.json
+
+    #parse json obj and start conversion and trim
+    ${json_file}=	Get Value From Json	${json_file}	$..client_secret
+    ${CLIENT_SECRET}=    Convert JSON To String	${json_file}
+    ${CLIENT_SECRET}=    Evaluate    ${CLIENT_SECRET}[1:-1].strip('"')    json
+    Log    ${CLIENT_SECRET}
+
     Set Global Variable    ${CLIENT_ID_FROM_JSON_FILE}    ${CLIENT_ID}
     Set Global Variable    ${CLIENT_SECRET_FROM_JSON_FILE}    ${CLIENT_SECRET}

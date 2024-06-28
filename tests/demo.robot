@@ -6,6 +6,7 @@ Resource    ..${/}keywords${/}global_keywords.robot
 Verify points earned e2e test
     [Documentation]  verify correct conversion of points.
     ...    for every 1 dollar spent the account will earn 0.75 loyalty points.
+
     global_keywords.Create Token
     ...    ${CREATE_TOKEN_ENDPOINT}
     ...    client_credentials
