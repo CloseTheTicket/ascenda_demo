@@ -38,4 +38,4 @@ jobs:
         run: python -m Browser.entry init
 
       - name: Run robot tests for ui
-        run: robot --nostatusrc tests/api
+        run: robot --nostatusrc tests/ui
