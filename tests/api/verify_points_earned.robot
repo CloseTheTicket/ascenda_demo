@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ..${/}keywords${/}global_keywords.robot
+Resource    ..${/}..${/}keywords${/}global_keywords.robot
 
 
 *** Test Cases ***
@@ -56,23 +56,6 @@ Verify points earned e2e test
 
 
 *** Keywords ***
-Assert Webhook Payload User Should Be Enrolled
-    [Documentation]  Keyword to assert json payload that user status is "enrolled"
-    Should Be Equal    ${WEBHOOK_RESPONSE.json()['data']['status']}    enrolled
-
-Generate Random User Data
-    [Documentation]  Keyword to generate random data for user
-    ${PARTNER_USER_ID}=  Generate Random String
-    Set Suite Variable  ${PARTNER_USER_ID}
-    ${RANDOM_EMAIL}=  Email
-    Set Suite Variable  ${RANDOM_EMAIL}
-    ${RANDOM_FNAME}=  First Name
-    Set Suite Variable  ${RANDOM_FNAME}
-    ${RANDOM_LNAME}=  Last Name
-    Set Suite Variable  ${RANDOM_LNAME}
-    ${RANDOM_COUNTRY_CODE}=  Country Code
-    Set Suite Variable  ${RANDOM_COUNTRY_CODE}
-
 Assert Correct Transaction Points Earned
     [Documentation]  Keyword to assert transaction details with correct points earned for user
     Should Be Equal    ${LATEST_TRANSACTION_HISTORY.json()['data'][0]['type']}    points_transaction

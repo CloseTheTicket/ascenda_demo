@@ -8,3 +8,4 @@ Library         json
 Library         JSONLibrary
 Library         RequestsLibrary
 Library         FakerLibrary    locale=None
+Library         Browser

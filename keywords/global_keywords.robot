@@ -173,3 +173,65 @@ Get Client Id And Client Secret
 
     Set Global Variable    ${CLIENT_ID_FROM_JSON_FILE}    ${CLIENT_ID}
     Set Global Variable    ${CLIENT_SECRET_FROM_JSON_FILE}    ${CLIENT_SECRET}
+
+Top Up/Deduct Points
+    [Documentation]  https://docs.ascenda.com/reference/createpointadjustment
+    [Arguments]    ${endpoint}
+    ...    ${adjustment_type}
+    ...    ${user_id}
+    ...    ${descriptor}
+    ...    ${amount}
+    ...    ${reference_id}
+    ...    ${reason}
+    ...    ${expiry}
+    &{headers}=    Create Dictionary    Authorization=${BEARER_TOKEN}   Content-Type=application/json
+    &{body}=    Create Dictionary
+    ...    adjustment_type=${adjustment_type}
+    ...    user_id=${user_id}
+    ...    descriptor=${descriptor}
+    ...    amount=${amount}
+    ...    reference_id=${reference_id}
+    ...    reason=${reason}
+    ...    expiry=${expiry}
+    ${body_json}=    Json.Dumps    ${body}
+    ${resp}=    POST On Session
+    ...     API_SESSION
+    ...     ${endpoint}
+    ...     data=${body_json}
+    ...     headers=${headers}
+    ...     expected_status=201
+
+Create Login Link
+    [Documentation]  https://docs.ascenda.com/reference/post_users-id-login-link
+    [Arguments]    ${endpoint}
+    ...    ${session_reference}
+    &{headers}=    Create Dictionary    Authorization=${BEARER_TOKEN}   Content-Type=application/json
+    &{body}=    Create Dictionary
+    ...    session_reference=${session_reference}
+    ${body_json}=    Json.Dumps    ${body}
+    ${resp}=    POST On Session
+    ...     API_SESSION
+    ...     ${endpoint}
+    ...     data=${body_json}
+    ...     headers=${headers}
+    ...     expected_status=200
+    Log  ${resp.json()}
+    ${GENERATED_LOGIN_LINK}=    Set Variable  ${resp.json()['login_link']}
+    Set Global Variable    ${GENERATED_LOGIN_LINK}    ${resp.json()['login_link']}
+
+Generate Random User Data
+    [Documentation]  Keyword to generate random data for user
+    ${PARTNER_USER_ID}=  Generate Random String
+    Set Global Variable  ${PARTNER_USER_ID}
+    ${RANDOM_EMAIL}=  Email
+    Set Global Variable  ${RANDOM_EMAIL}
+    ${RANDOM_FNAME}=  First Name
+    Set Global Variable  ${RANDOM_FNAME}
+    ${RANDOM_LNAME}=  Last Name
+    Set Global Variable  ${RANDOM_LNAME}
+    ${RANDOM_COUNTRY_CODE}=  Country Code
+    Set Global Variable  ${RANDOM_COUNTRY_CODE}
+
+Assert Webhook Payload User Should Be Enrolled
+    [Documentation]  Keyword to assert json payload that user status is "enrolled"
+    Should Be Equal    ${WEBHOOK_RESPONSE.json()['data']['status']}    enrolled

@@ -10,3 +10,5 @@ ${POST_WEBHOOK_URL}  https://webhook.site/239c1f7d-a7b0-4c3f-a481-70197f89b55b/r
 ${USERS_ENDPOINT}  /users
 ${TRANSACTIONS_ENDPOINT}  /transactions
 ${TRANSACTIONS_HISTORY_ENDPOINT}  /points_transactions
+${POINTS_ADJUSTMENTS_ENDPOINT}  /point_adjustments
+${LOGIN_LINK_ENDPOINT}  /login_link

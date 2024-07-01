@@ -2,3 +2,7 @@
 *log.html
 *report.html
 *test_data_files/sample_webhook_payload.json
+*.png
+*.pyc
+.DS_Store
+*playwright-log.txt
