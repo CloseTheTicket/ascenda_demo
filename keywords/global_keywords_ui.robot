@@ -7,4 +7,4 @@ Resource    ..${/}resources${/}test_data.robot
 Set Browser Instance
     [Documentation]  Set initial browser selection and instance
     Set Browser Timeout  3m
-    New Browser  browser=chromium  headless=False
+    New Browser  browser=chromium  headless=True

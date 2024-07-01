@@ -9,7 +9,6 @@ Resource    ..${/}..${/}page_objects${/}rewards_summary_page_object.robot
 Resource    ..${/}..${/}page_objects${/}nav_bar_page_object.robot
 Resource    ..${/}..${/}page_objects${/}points_activity_page_page_object.robot
 
-# Test Teardown  Close All Browsers
 Test Teardown  Browser.Close Page  page=ALL
 
 
