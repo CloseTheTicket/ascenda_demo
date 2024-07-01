@@ -1,7 +1,6 @@
 *** Settings ***
 Resource    ..${/}resources${/}setup.robot
 Resource    ..${/}resources${/}test_data.robot
-Library    ..${/}resources${/}custom_webdriver.py
 
 
 *** Keywords ***

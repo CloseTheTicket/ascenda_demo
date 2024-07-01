@@ -20,7 +20,8 @@ Assert Generated Rewards Id Is Confirmed
     ${REWARDS_ID_RESULT_TEXT}=  Browser.Get Property  selector=${REWARDS_ID_RESULT}  property=outerText
     Set Suite Variable  ${REWARDS_ID_RESULT_TEXT}  ${REWARDS_ID_RESULT_TEXT}
     Should Be Equal  first=${ORDER_ID}  second=${REWARDS_ID_RESULT_TEXT}
-    Get Property  selector=${ORDER_STATUS_TEXT}
-    ...    property=innerText
-    ...    assertion_operator=equals
-    ...    assertion_expected=Confirmed
+    ${status_value}=  Get Text  selector=${ORDER_STATUS_TEXT}
+    WHILE  $status_value !='Confirmed'  limit=20
+        Reload
+        ${status_value}=  Get Text  selector=${ORDER_STATUS_TEXT}
+    END
