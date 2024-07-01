@@ -22,7 +22,7 @@ jobs:
           python-version: '3.12.1'
 
       - name: Update pip to latest ver
-        run: python pip install -U pip
+        run: pip install -U pip
 
       - name: Install rf dependencies
         run: |
