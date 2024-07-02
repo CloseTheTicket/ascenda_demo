@@ -19,18 +19,31 @@
 ```sh
   pip --version
 ```
-## Step 3: Install dependencies via Pip
+## Step 3: Update pip to latest ver
+```pip install -U pip```
+
+## Step 4: Install node 20.x via installer
+https://nodejs.org/en/download/prebuilt-installer
+
+## Step 5: Install dependencies via Pip
 ```sh
-  python -m pip install --upgrade robotframework
-  python -m pip install --upgrade robotframework-requests
-  python -m pip install --upgrade robotframework-faker
-  python -m pip install --upgrade robotframework-jsonlibrary
+  pip install --upgrade robotframework
+  pip install --upgrade robotframework-requests
+  pip install --upgrade robotframework-faker
+  pip install --upgrade robotframework-jsonlibrary
+  pip install --upgrade robotframework-browser
+```
+## Step 6: Install node dependencies for playwright and robot
+```python -m Browser.entry init```
+
+## Step 7: Run tests via robot command
+```sh
+  robot tests/api/
+```
+```sh
+  robot tests/ui/
 ```
 
-## Step 4: Run tests via robot command
-```sh
-  robot tests/demo.robot
-```
 ### View results generated ``report.html`` and ``log.html``
 
 Technical documentation: https://docs.google.com/document/d/1L9KQ-w9SxRzt-tuv4agJ7ex4n9eV0ZD_nzY1_iZlc3I/edit?usp=sharing
