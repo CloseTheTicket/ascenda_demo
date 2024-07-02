@@ -47,3 +47,5 @@ https://nodejs.org/en/download/prebuilt-installer
 ### View results generated ``report.html`` and ``log.html``
 
 Technical documentation: https://docs.google.com/document/d/1L9KQ-w9SxRzt-tuv4agJ7ex4n9eV0ZD_nzY1_iZlc3I/edit?usp=sharing
+
+Sample log and report files can be found under `sample_log_files` folder
